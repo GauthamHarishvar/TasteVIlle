@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TasteVille – Home</title>
+
+<style>
+    body{
+        margin:0;
+        padding:0;
+        font-family: Arial, sans-serif;
+
+        /* Background image from Google (Food Image) */
+        background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=80')
+                    no-repeat center center/cover;
+
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .logo {
+    display: block;
+    margin: 0 auto 20px auto;  /* center + spacing */
+    width: 180px;              /* FIXED and SAFE */
+    max-width: 90%;            /* responsive */
+    }
+
+
+    .container{
+        background: rgba(0,0,0,0.55);
+        padding:40px;
+        text-align:center;
+        border-radius:20px;
+        width:350px;
+        box-shadow:0 0 20px rgba(0,0,0,0.6);
+    }
+
+    h1{
+        color:#fff;
+        font-size:38px;
+        margin-bottom:25px;
+        text-shadow:2px 2px 4px black;
+    }
+
+    button{
+        width:80%;
+        padding:15px;
+        margin:10px 0;
+        font-size:20px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        background:#ff914d;
+        color:white;
+        font-weight:bold;
+        transition:0.3s;
+    }
+
+    button:hover{
+        background:#ff6f3c;
+        transform:scale(1.05);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img src="adadwad.svg" class="logo">
+    <h1>Welcome to TasteVille</h1>
+    
+    <button onclick="location.href='menubb.html'">Menu</button>
+    <button onclick="location.href='booking.html'">Cart</button>
+    <button onclick="location.href='feedbackbb.html'">Feedback</button>
+</div>
+
+</body>
+</html>

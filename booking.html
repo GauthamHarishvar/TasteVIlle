@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TasteVille – Booking</title>
+
+<style>
+    body{
+        margin:0;
+        padding:20px;
+        font-family:'Inter',sans-serif;
+        background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?crop=entropy&cs=tinysrgb&fit=max&w=1350&q=80') no-repeat center/cover fixed;
+    }
+
+    .home-btn{
+        background:#000;
+        color:white;
+        padding:10px 18px;
+        border-radius:8px;
+        text-decoration:none;
+        font-weight:600;
+        display:inline-block;
+        margin-bottom:15px;
+    }
+
+    .wrap{
+        max-width:900px;
+        margin:auto;
+        background:rgba(255,255,255,0.92);
+        padding:25px;
+        border-radius:16px;
+        box-shadow:0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    h1{text-align:center; font-size:34px; margin-bottom:20px;}
+    h2{margin-bottom:12px;}
+
+    .logo {
+    display: block;
+    margin: 0 auto 20px auto;  /* center + spacing */
+    width: 180px;              /* FIXED and SAFE */
+    max-width: 90%;            /* responsive */
+    }
+
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-bottom:14px;
+    }
+
+    th{
+        background:linear-gradient(90deg,#ff9c5f,#ff6347);
+        color:white;
+        padding:14px;
+        font-size:17px;
+    }
+
+    td{
+        padding:14px;
+        border-bottom:1px solid #ddd;
+    }
+
+    td img{
+        width:70px;
+        height:55px;
+        border-radius:10px;
+        object-fit:cover;
+        margin-right:8px;
+    }
+
+    .total{
+        font-size:22px;
+        text-align:right;
+        font-weight:700;
+        margin:15px 0;
+    }
+
+    .confirm-btn{
+        background:#28a745;
+        color:white;
+        padding:12px 20px;
+        border:none;
+        border-radius:8px;
+        font-size:17px;
+        font-weight:700;
+        cursor:pointer;
+        display:block;
+        margin-left:auto;
+    }
+</style>
+</head>
+
+<body>
+
+<a class="home-btn" href="index.html">⬅ Home</a>
+<img src="adadwad.svg" class="logo">
+
+<div class="wrap">
+    <h1>📄 Booking Page</h1>
+    <h2>Order Summary</h2>
+
+    <table id="orderTable">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Calories</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="total" id="totalAmount">Total: ₹0</div>
+
+    <button class="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+</div>
+
+<script>
+const cart = JSON.parse(localStorage.getItem("cartData") || "[]");
+
+const tbody=document.querySelector("#orderTable tbody");
+let total=0;
+
+cart.forEach(item=>{
+    tbody.innerHTML+=`
+        <tr>
+            <td><img src="${item.img}">${item.name}</td>
+            <td>₹${item.price}</td>
+            <td>${item.calories} kcal</td>
+        </tr>`;
+    total+=item.price;
+});
+
+document.getElementById("totalAmount").textContent="Total: ₹"+total;
+
+function confirmOrder(){
+    alert("Order confirmed!");
+    localStorage.removeItem("cartData");
+    window.location.href="menubb.html";
+}
+</script>
+
+</body>
+</html>

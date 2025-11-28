@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TasteVille Feedback</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') no-repeat center/cover;
+    }
+
+    .overlay {
+        background: rgba(0,0,0,0.65);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    } 
+
+    .logo {
+    display: block;
+    margin: 0 auto 20px auto;  /* center + spacing */
+    width: 180px;              /* FIXED and SAFE */
+    max-width: 90%;            /* responsive */
+    }
+
+
+    /* Back to Home Button */
+    .home-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 12px 18px;
+        background: #ff6f3c;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+    .home-btn:hover {
+        background: #ff4f1c;
+    }
+
+    /* Main Card */
+    .container {
+        width: 40%;
+        margin: 100px auto 40px;
+        background: rgba(255,255,255,0.12);
+        padding: 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+        color: white;
+        animation: fadeIn 1s ease;
+        position: relative;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0 20px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 15px;
+    }
+
+    textarea {
+        height: 120px;
+        resize: none;
+    }
+
+    /* Star Rating */
+    .stars span {
+        font-size: 30px;
+        cursor: pointer;
+        color: #777;
+        transition: 0.2s;
+        user-select: none;
+    }
+
+    .stars span.active {
+        color: gold;
+    }
+
+    /* Submit Button */
+    button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        font-size: 18px;
+        background: #ffcc66;
+        font-weight: 600;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:hover {
+        transform: scale(1.03);
+        background: #ffb13b;
+    }
+
+    /* Reviews Area */
+    .reviews {
+        width: 60%;
+        margin: 40px auto;
+        background: rgba(0,0,0,0.55);
+        padding: 25px;
+        border-radius: 20px;
+        color: white;
+    }
+
+    .review-box {
+        background: rgba(255,255,255,0.12);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 10px rgba(255,255,255,0.15);
+    }
+
+    .review-box h3 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .stars-display {
+        color: gold;
+        font-size: 20px;
+        margin: 4px 0;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<!-- Home Button -->
+<a href="index.html" class="home-btn">⬅ Back to Home</a>
+<br><br>
+<img src="adadwad.svg" class="logo">
+
+<!-- Feedback Form -->
+<div class="container">
+    <h1>Share Your Experience</h1>
+
+    <label>Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <label>Rate Us</label>
+    <div class="stars" id="starRating">
+        <span data-value="1">★</span>
+        <span data-value="2">★</span>
+        <span data-value="3">★</span>
+        <span data-value="4">★</span>
+        <span data-value="5">★</span>
+    </div>
+
+    <label>Your Feedback</label>
+    <textarea id="feedback" placeholder="Write your review..."></textarea>
+
+    <button onclick="submitReview()">Submit</button>
+</div>
+
+<!-- Reviews Display -->
+<div class="reviews" id="reviewsSection">
+    <h2 style="text-align:center;">Customer Reviews</h2>
+</div>
+
+<script>
+    let selectedRating = 0;
+    const stars = document.querySelectorAll(".stars span");
+
+    // Fill stars visually
+    function paintStars(count) {
+        stars.forEach((star, index) => {
+            star.classList.toggle("active", index < count);
+        });
+    }
+
+    // Hover preview
+    stars.forEach((star, index) => {
+        star.addEventListener("mouseenter", () => {
+            paintStars(index + 1);
+        });
+    });
+
+    // Remove hover preview
+    document.querySelector(".stars").addEventListener("mouseleave", () => {
+        paintStars(selectedRating);
+    });
+
+    // Click to lock rating
+    stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+            selectedRating = index + 1;
+            paintStars(selectedRating);
+        });
+    });
+
+    function submitReview() {
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let feedback = document.getElementById("feedback").value.trim();
+
+        if (!name || !email || !feedback || selectedRating === 0) {
+            alert("Please fill all fields and rate us!");
+            return;
+        }
+
+        let box = document.createElement("div");
+        box.className = "review-box";
+
+        box.innerHTML = `
+            <h3>${name}</h3>
+            <p class="stars-display">${"★".repeat(selectedRating)}</p>
+            <p>${feedback}</p>
+        `;
+
+        document.getElementById("reviewsSection").appendChild(box);
+
+        // Reset everything
+        selectedRating = 0;
+        paintStars(0);
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("feedback").value = "";
+    }
+</script>
+
+</body>
+</html>
